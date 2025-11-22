@@ -25,10 +25,11 @@ def balance_reaction(equation):
         rhs = sum(count_atoms_in_molecule(products[i]).get(elem, 0) * coeff_symbols[len(reactants)+i] for i in range(len(products)))
         equations.append(Eq(lhs, rhs))
 
-    equations.append(Eq(coeff_symbols[0], 1))
+    equations.append(Eq(coeff_symbols[0], Rational(1,1)))
 
     solution = solve(equations, coeff_symbols)
 
-    return [solution[s] for s in coeff_symbols]
+    return [solution[s].simplify() for s in coeff_symbols]
+
 
 
